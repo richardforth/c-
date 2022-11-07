@@ -1,2 +1,2 @@
-# c-
+# cpp
 A collection of c++ programs
