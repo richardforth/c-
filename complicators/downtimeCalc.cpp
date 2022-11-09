@@ -193,7 +193,7 @@ int main(int argc, char** argv)
         cout << endl << "Error: Something went wrong. Check inputs:" << endl;
         cout << " (expects char**)- > Input month: " << month << endl;
         cout << " (expects integer) - > Input seconds: " << seconds << endl;
-        cout << " (expects float)- > Input pct: " << pct << endl;
+        cout << " (expects float) - > Input pct: " << pct << endl;
     }
 
     return 0;
