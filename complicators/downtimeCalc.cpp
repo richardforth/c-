@@ -10,6 +10,19 @@ time_t t = time(nullptr);
 tm *const pTInfo = localtime(&t);
 int currentYear = ( 1900 + pTInfo->tm_year);
 
+int somethingWentWrong()
+{
+    cout << endl << "Error: Something went wrong. Check inputs:" << endl;
+    cout << endl;
+    cout << " ARG1 (expects char**)- > Input month" << endl;
+    cout << " ARG2 (expects integer) - > Input seconds" << endl;
+    cout << " ARG3 (expects float) - > Input percentage" << endl;
+    cout << endl;
+    cout << "Example: " << endl;
+    cout << "  downtimeCalc.exe October 6700 99.75" << endl;
+    exit(1);
+}
+
 
 string toLower(string s) {
     for(char &c : s)
@@ -71,6 +84,10 @@ int calcDowntime(string m, int d, int s, float p)
 
 int main(int argc, char** argv)
 {
+    if (argc != 4)
+    {
+        somethingWentWrong();
+    }
     cout << "***************************************" << endl;
     cout << "****** C++ Downtime Calculator ********" << endl;
     cout << "***************************************" << endl;
@@ -190,10 +207,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        cout << endl << "Error: Something went wrong. Check inputs:" << endl;
-        cout << " (expects char**)- > Input month: " << month << endl;
-        cout << " (expects integer) - > Input seconds: " << seconds << endl;
-        cout << " (expects float) - > Input pct: " << pct << endl;
+        somethingWentWrong();
     }
 
     return 0;
