@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <cstdio> // fprintf
 #include <string>
 #include <ctime>
@@ -50,30 +51,38 @@ int calcDowntime(string m, int d, int s, float p)
     double uptime_pct = static_cast <double> ( p );
 
     cout << endl;
-    cout << "***************************************" << endl;
-    cout << "*******  R  E  S  U  L  T  S   ********" << endl;
-    cout << "***************************************" << endl;
+    cout << "**************************************" << endl;
+    cout << "*******  R  E  S  U  L  T  S   *******" << endl;
+    cout << "**************************************" << endl;
+    string str = "Days in " +  static_cast<string>(month) + ":";
+    cout << left << setw(30) << str << right << setw(8) << days << endl;
 
-    cout << "Days in " << month << ": " << days << endl;
     int hours = (24 * days);
-    cout << "Hours in " << month << ": " << hours << endl;
+    str = "Hours in " +  static_cast<string>(month) + ":";
+    cout << left << setw(30) << str << right << setw(8) << hours << endl;
+
+
     int minutes = (60 * hours);
-    cout << "Minutes in " << month << ": " << minutes << endl;
+    str = "Minutes in " +  static_cast<string>(month) + ":";
+    cout << left << setw(30) << str << right << setw(8) << minutes << endl;
+
     int seconds = (60 * minutes);
-    cout << "Seconds in " << month << ": " << seconds << endl;
-    cout << "Seconds of Downtime: " << seconds_down << endl;
-    cout << "Uptime Reported (%): ";
+    str = "Seconds in " +  static_cast<string>(month) + ":";
+    cout << left << setw(30) << str << right << setw(8) << seconds << endl;
+
+
+    cout << left << setw(34) << "Uptime Reported (%): ";
     fprintf(stdout, "%.2f", uptime_pct);
     cout << endl;
-    cout << "Note: the following 2 numbers should match" << endl;
+    cout << "Note the following numbers should match" << endl;
     double downtime_pct = (100.00 - uptime_pct);
-    cout << "Downtime Reported (%): " << downtime_pct << endl;
+    cout << left << setw(34) << "Downtime Reported (%): " << downtime_pct << endl;
     // calculate seconds downtime as a percentage of total seconds in month
     double calc_downtime_pct = ((static_cast<double>(seconds_down) / seconds) * 100 );
-    cout << "Downtime Calculated (%): ";
+    cout << left << setw(34) << "Downtime Calculated (%): ";
     fprintf(stdout, "%.2f", calc_downtime_pct);
     cout << endl;
-    cout << "***************************************" << endl;
+    cout << "**************************************" << endl;
 
 
 
@@ -88,9 +97,9 @@ int main(int argc, char** argv)
     {
         somethingWentWrong();
     }
-    cout << "***************************************" << endl;
-    cout << "****** C++ Downtime Calculator ********" << endl;
-    cout << "***************************************" << endl;
+    cout << "**************************************" << endl;
+    cout << "****** C++ Downtime Calculator *******" << endl;
+    cout << "**************************************" << endl;
     int days, hours, minutes, seconds;
     float pct;
 
@@ -140,9 +149,9 @@ int main(int argc, char** argv)
     else if (month == "february")
     {
         cout << endl;
-        cout << "***************************************" << endl;
-        cout << "* LEAP YEAR CHECK FOR FEBRUARY INPUT  *" << endl;
-        cout << "***************************************" << endl;
+        cout << "**************************************" << endl;
+        cout << "* LEAP YEAR CHECK FOR FEBRUARY INPUT *" << endl;
+        cout << "**************************************" << endl;
         cout << "Is " << currentYear << " a leap Year? " << ((isLeapYear() == 1) ? "Yes" : "No") << endl;
         if (isLeapYear() == 1)
         {
