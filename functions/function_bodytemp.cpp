@@ -8,7 +8,7 @@ float bodyTempF();
 int main()
 {
     cout << "Centigrade: " << bodyTempC() << endl;
-    cout << "Farenheit: " << bodyTempF() << endl;
+    cout << "Fahrenheit: " << bodyTempF() << endl;
     return 0;
 }
 
