@@ -106,7 +106,7 @@ int calcDowntime(string m, int d, int s, float p, float sla)
     }
     else
     {
-        cout << " - Not all downtime was accounted for. ("  << calc_downtime_pct << " < " << downtime_pct << ")" << endl;
+        cout << " - Not all downtime was accounted for. ("  << calc_downtime_pct << " <> " << downtime_pct << ")" << endl;
     }
 
     cout << "**************************************" << endl;
