@@ -18,12 +18,17 @@ int somethingWentWrong()
     cout << " ARG1 (expects char**)- > Input month" << endl;
     cout << " ARG2 (expects integer) - > Input seconds" << endl;
     cout << " ARG3 (expects float) - > Input percentage" << endl;
+    cout << " ARG4 (expects float) - > Input service level agreement (SLA) percentage" << endl;
     cout << endl;
     cout << "Example: " << endl;
-    cout << "  downtimeCalc.exe October 6700 99.75" << endl;
+    cout << "  downtimeCalc.exe October 6700 99.75 99.99" << endl;
     exit(1);
 }
 
+bool double_equals(double a, double b, double epsilon = 0.001)
+{
+    return std::abs(a - b) < epsilon;
+}
 
 string toLower(string s) {
     for(char &c : s)
@@ -43,7 +48,7 @@ bool isLeapYear()
     }
 }
 
-int calcDowntime(string m, int d, int s, float p)
+int calcDowntime(string m, int d, int s, float p, float sla)
 {
     string month = m;
     int days = d;
@@ -74,6 +79,9 @@ int calcDowntime(string m, int d, int s, float p)
     cout << left << setw(34) << "Uptime Reported (%): ";
     fprintf(stdout, "%.2f", uptime_pct);
     cout << endl;
+    cout << left << setw(34) << "SLA Reported (%): ";
+    fprintf(stdout, "%.2f", sla);
+    cout << endl;
     cout << "Note the following numbers should match" << endl;
     double downtime_pct = (100.00 - uptime_pct);
     cout << left << setw(34) << "Downtime Reported (%): " << downtime_pct << endl;
@@ -82,6 +90,25 @@ int calcDowntime(string m, int d, int s, float p)
     cout << left << setw(34) << "Downtime Calculated (%): ";
     fprintf(stdout, "%.2f", calc_downtime_pct);
     cout << endl;
+    cout << "**************************************" << endl;
+    cout << "Conclusions:" << endl;
+    if (uptime_pct < sla)
+    {
+        cout << " - The SLA was not met." << endl;
+    }
+    else
+    {
+        cout << "- the SLA was met."  << endl;
+    }
+    if (double_equals(calc_downtime_pct, downtime_pct) == 1)
+    {
+        cout << " - All downtime was accounted for." << endl;
+    }
+    else
+    {
+        cout << " - Not all downtime was accounted for. ("  << calc_downtime_pct << " < " << downtime_pct << ")" << endl;
+    }
+
     cout << "**************************************" << endl;
 
 
@@ -93,7 +120,7 @@ int calcDowntime(string m, int d, int s, float p)
 
 int main(int argc, char** argv)
 {
-    if (argc != 4)
+    if (argc != 5)
     {
         somethingWentWrong();
     }
@@ -101,7 +128,7 @@ int main(int argc, char** argv)
     cout << "****** C++ Downtime Calculator *******" << endl;
     cout << "**************************************" << endl;
     int days, hours, minutes, seconds;
-    float pct;
+    float pct, sla;
 
     // Thirty days hath September...
     const int September_days = 30;
@@ -133,12 +160,15 @@ int main(int argc, char** argv)
     seconds = stoi(downtime_seconds);
     string uptime_pct = argv[3];
     pct = stod(uptime_pct);
+    string servicelevel_pct = argv[4];
+    sla = stod(servicelevel_pct);
 
 
     cout << "Inputs:" << endl;
     cout << " - month: " << month << endl;
     cout << " - seconds_down: " << seconds << endl;
     cout << " - uptime_pct: " << uptime_pct << endl;
+    cout << " - sla_pct: " << sla << endl;
 
 
 
@@ -156,63 +186,63 @@ int main(int argc, char** argv)
         if (isLeapYear() == 1)
         {
             days = February_leap_days;
-            calcDowntime(month, days, seconds, pct);
+            calcDowntime(month, days, seconds, pct, sla);
         }
         else
         {
             days = February_days;
-            calcDowntime(month, days, seconds, pct);
+            calcDowntime(month, days, seconds, pct, sla);
         }
     }
     else if (month == "march")
     {
         days = March_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "april")
     {
         days = April_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "may")
     {
         days = May_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
         else if (month == "june")
     {
         days = June_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "july")
     {
         days = July_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "august")
     {
         days = August_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "september")
     {
         days = September_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "october")
     {
         days = October_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "november")
     {
         days = November_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else if (month == "december")
     {
         days = December_days;
-        calcDowntime(month, days, seconds, pct);
+        calcDowntime(month, days, seconds, pct, sla);
     }
     else
     {
