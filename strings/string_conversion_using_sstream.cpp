@@ -18,7 +18,7 @@ int main()
     cout << "Integer value: " << num << endl;
 
     // reset the stringstream ready for re-use
-    stream.str("") ; // empty he contents
+    stream.str("") ; // empty the contents
     stream.clear() ; // empty the bit flags
 
     stream << number ;
