@@ -1,5 +1,5 @@
 #include <iostream>
-//requires string.hpp file to be present ins directory you add to compiler search folders
+//requires string.hpp file to be present in a directory you add to compiler search folders
 // eg C:\Program Files (x86)\Boost\boost_1_62_0\boost\algorithm\string.hpp
 // with a "Search directory" added as "C:\Program Files (x86)\Boost\boost_1_62_0\"
 // see: https://sourceforge.net/projects/boost/
