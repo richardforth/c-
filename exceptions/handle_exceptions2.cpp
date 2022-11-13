@@ -1,3 +1,7 @@
+#include <stdexcept>
+#include <typeinfo>
+#include <fstream>
+#include <string>
 #include <iostream>
 using namespace std;
 
