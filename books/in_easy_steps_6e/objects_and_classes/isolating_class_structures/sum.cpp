@@ -4,7 +4,7 @@ int main()
 {
     Calculator* pCalc = new Calculator ;
     pCalc -> launch() ;
-    while (pCalc -> run()
+    while ( pCalc -> run() )
     {
         pCalc -> readInput() ;
         pCalc -> writeOutput() ;
