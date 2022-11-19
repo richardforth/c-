@@ -7,7 +7,7 @@ Calculator::Calculator()
     status = true ;
 }
 
-void Calculator::launch{}
+void Calculator::launch()
 {
     cout << "*** SUM CALCULATOR ***" << endl ;
     cout << "Enter a number, and operator (+, -, *, /), and another number." << endl ;
@@ -25,10 +25,10 @@ void Calculator::writeOutput()
 {
     if ( status ) switch( oper )
     {
-        case "+" : { cout << ( num1 + num2 ) << endl ; break ; }
-        case "-" : { cout << ( num1 - num2 ) << endl ; break ; }
-        case "*" : { cout << ( num1 * num2 ) << endl ; break ; }
-        case "/" : if ( num2 != 0 )
+        case '+' : { cout << ( num1 + num2 ) << endl ; break ; }
+        case '-' : { cout << ( num1 - num2 ) << endl ; break ; }
+        case '*' : { cout << ( num1 * num2 ) << endl ; break ; }
+        case '/' : if ( num2 != 0 )
             { cout << ( num1 / num2 ) << endl ; break ; }
             else { cout << "Cannot divide by 0." << endl ; break ; }
     }
