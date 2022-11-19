@@ -17,7 +17,7 @@ void Calculator::launch()
 void Calculator::readInput()
 {
     cout << "> " ; cin >> num1 ;
-    if ( num1 == 0 ) status - false ;
+    if ( num1 == 0 ) status = false ;
     else { cin >> oper ; cin >> num2 ; }
 }
 
