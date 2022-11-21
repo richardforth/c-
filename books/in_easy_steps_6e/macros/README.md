@@ -16,4 +16,4 @@ Java in easy steps
 *****************************
 NUM is: 50
 Double NUM: 100
-``
+```
