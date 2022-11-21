@@ -17,3 +17,19 @@ Java in easy steps
 NUM is: 50
 Double NUM: 100
 ```
+
+
+# Regarding ifdef.cpp
+
+Compilation
+
+```bash
+>c++ -DBOOK=\""Python in easy steps"\" ifdef.cpp -o ifdef.exe
+```
+
+Output
+
+```bash
+Python in easy steps by Mike McGrath
+Linux in easy steps by Mike McGrath
+```
