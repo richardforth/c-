@@ -53,10 +53,11 @@ bool isLeapYear()
     }
 }
 
-int calcDowntime(string m, int d, float pph)
+int calcEnergyCost(string m, int d, float pph)
 {
     string month = m;
     int days = d;
+    int hours;
     double fPph = static_cast <double> ( pph );
 
     cout << endl;
@@ -66,7 +67,7 @@ int calcDowntime(string m, int d, float pph)
     string str = "Days in " +  static_cast<string>(month) + ":";
     cout << left << setw(30) << str << right << setw(8) << days << endl;
 
-    int hours = (24 * days);
+    hours = (24 * days);
     str = "Hours in " +  static_cast<string>(month) + ":";
     cout << left << setw(30) << str << right << setw(8) << hours << endl;
 
@@ -76,10 +77,14 @@ int calcDowntime(string m, int d, float pph)
     cout << endl;
 
     // calculate energy price by price per hour time days in month
-    double calc_energy_price = (hours * fPph) ;
-    cout << left << setw(34) << "Monthly Energy Cost (GBP): ";
-    fprintf(stdout, "%.2f", calc_energy_price);
-    cout << endl;
+    double calc_energy_price_mo = (hours * fPph) ;
+    cout << left << setw(34) << "Monthly Energy Cost (GBP): " ;
+    fprintf(stdout, "%.2f", calc_energy_price_mo);
+    cout << endl ;
+    double calc_energy_price_yr = (calc_energy_price_mo * 12) ;
+    cout << left << setw(34) << "Yearly Energy Cost (GBP): " ;
+    fprintf(stdout, "%.2f", calc_energy_price_yr);
+    cout << endl ;
     cout << RULE << endl;
     cout << "Note: Doesnt include standing charges" << endl ;
     cout << RULE << endl;
@@ -136,7 +141,7 @@ int main(int argc, char** argv)
     if (month == "january")
     {
             days = January_days;
-            calcDowntime(month, days, pph);
+            calcEnergyCost(month, days, pph);
     }
     else if (month == "february")
     {
@@ -148,63 +153,63 @@ int main(int argc, char** argv)
         if (isLeapYear() == 1)
         {
             days = February_leap_days;
-            calcDowntime(month, days, pph);
+            calcEnergyCost(month, days, pph);
         }
         else
         {
             days = February_days;
-            calcDowntime(month, days, pph);
+            calcEnergyCost(month, days, pph);
         }
     }
     else if (month == "march")
     {
         days = March_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "april")
     {
         days = April_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "may")
     {
         days = May_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
         else if (month == "june")
     {
         days = June_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "july")
     {
         days = July_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "august")
     {
         days = August_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "september")
     {
         days = September_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "october")
     {
         days = October_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "november")
     {
         days = November_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else if (month == "december")
     {
         days = December_days;
-        calcDowntime(month, days, pph);
+        calcEnergyCost(month, days, pph);
     }
     else
     {
