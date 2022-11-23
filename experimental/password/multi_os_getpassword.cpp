@@ -48,6 +48,23 @@ using namespace std;
     #include <termios.h> // linux only
     #include <unistd.h>
     #include <stdio.h>
+    int getch() {
+        int ch;
+        struct termios t_old, t_new;
+
+        tcgetattr(STDIN_FILENO, &t_old);
+        t_new = t_old;
+        t_new.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(STDIN_FILENO, TCSANOW, &t_new);
+
+        ch = getchar();
+
+        tcsetattr(STDIN_FILENO, TCSANOW, &t_old);
+        return ch;
+    } 
+ 
+ 
+ 
     string getpasswd(const char *prompt, bool show_asterisk=true)
     {
         const char BACKSPACE=127;
@@ -80,20 +97,7 @@ using namespace std;
         return password;
     }
 
-    int getch() {
-        int ch;
-        struct termios t_old, t_new;
-
-        tcgetattr(STDIN_FILENO, &t_old);
-        t_new = t_old;
-        t_new.c_lflag &= ~(ICANON | ECHO);
-        tcsetattr(STDIN_FILENO, TCSANOW, &t_new);
-
-        ch = getchar();
-
-        tcsetattr(STDIN_FILENO, TCSANOW, &t_old);
-        return ch;
-    }
+ 
 
 
 #endif // defined
