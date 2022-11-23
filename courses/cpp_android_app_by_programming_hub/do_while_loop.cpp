@@ -6,7 +6,7 @@ int main()
     // local variable declaration
     int a = 10;
 
-    // while loop execution
+    // do loop execution
     do{
         cout<<"value of a: "<<a<<endl;
         a++;
