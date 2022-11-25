@@ -1,3 +1,3 @@
-# C++ 98
+# C++ 03
 
-Any example codes from C++98 will go in here
+Any example codes from C++03 will go in here
