@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <vector> // Include vector support
 #include <fstream>
 #include <sstream>
@@ -15,6 +16,25 @@ using std::stringstream;
 using std::getline;
 using std::right;
 using std::setw;
+
+const std::string WHITESPACE = " \n\r\t\f\v";
+
+std::string ltrim(const std::string &s)
+{
+    size_t start = s.find_first_not_of(WHITESPACE);
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+
+std::string rtrim(const std::string &s)
+{
+    size_t end = s.find_last_not_of(WHITESPACE);
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+
+std::string trim(const std::string &s) {
+    return rtrim(ltrim(s));
+}
+
 
 int main()
 {
@@ -35,7 +55,11 @@ int main()
     while (fgets(buffer.data(), 16384, pipe) != NULL)
     {
         c++;
-        line = buffer.data();
+        cols = 0; // reset counter each new line
+        line = trim(buffer.data());
+        rows++ ;
+        if (maxrows < rows)
+            maxrows = rows ;
         stringstream ss( line );
         while( ss.good() )
         {
