@@ -16,6 +16,12 @@ using std::getline;
 using std::right;
 using std::setw;
 
+int cols = 0 ;  // Create counter variable for columns.
+int rows = 0 ;  // Create counter variable for rows.
+int maxcols = 0, maxrows = 0; // variables to keep highscores
+int cellsize = 0 , maxcellsize = 0 ; // variables to dynamically size tables based on content
+vector <string> result ; // Create a string array.
+
 const std::string WHITESPACE = " \n\r\t\f\v";
 
 std::string ltrim(const std::string &s)
@@ -34,15 +40,35 @@ std::string trim(const std::string &s) {
     return rtrim(ltrim(s));
 }
 
+vector <string> processLine(string line)
+{
+    stringstream ss( line );
+    while( ss.good() )
+    {
+        string substr;
+        getline( ss, substr, ',' ) ;
+
+        cellsize = substr.size() ;
+        if (maxcellsize < cellsize)
+            maxcellsize = cellsize ;
+        cols++ ;
+        if (maxcols < cols)
+            maxcols = cols ;
+        if (substr != "" )
+            result.push_back( substr ) ;
+        else
+            cout << "Empty line ignored." << endl ;
+    }
+    return result;
+}
+
+
 int main(int argc, char *argv[])
 {
     string line, fname ;
     std::array<char,16384> buffer;
-    vector <string> result ; // Create a string array.
-    int cols = 0 ;  // Create counter variable for columns.
-    int rows = 0 ;  // Create counter variable for rows.
-    int maxcols = 0, maxrows = 0; // variables to keep highscores
-    int cellsize = 0 , maxcellsize = 0 ; // variables to dynamically size tables based on content
+
+
 
 
     // TODO: check for stdin
@@ -68,23 +94,7 @@ int main(int argc, char *argv[])
                 rows++ ;
                 if (maxrows < rows)
                     maxrows = rows ;
-                stringstream ss( line );
-                while( ss.good() )
-                {
-                    string substr;
-                    getline( ss, substr, ',' ) ;
-
-                    cellsize = substr.size() ;
-                    if (maxcellsize < cellsize)
-                        maxcellsize = cellsize ;
-                    cols++ ;
-                    if (maxcols < cols)
-                        maxcols = cols ;
-                    if (substr != "" )
-                        result.push_back( substr ) ;
-                    else
-                        cout << "Empty line ignored." << endl ;
-                }
+                result = processLine(line) ;
             }
             reader.close() ;
     }
@@ -106,23 +116,7 @@ int main(int argc, char *argv[])
                 rows++ ;
                 if (maxrows < rows)
                     maxrows = rows ;
-                stringstream ss( line );
-                while( ss.good() )
-                {
-                    string substr;
-                    getline( ss, substr, ',' ) ;
-
-                    cellsize = substr.size() ;
-                    if (maxcellsize < cellsize)
-                        maxcellsize = cellsize ;
-                    cols++ ;
-                    if (maxcols < cols)
-                        maxcols = cols ;
-                    if (substr != "" )
-                        result.push_back( substr ) ;
-                    else
-                        cout << "Empty line ignored." << endl ;
-                }
+                result = processLine(line) ;
             }
     }
 
