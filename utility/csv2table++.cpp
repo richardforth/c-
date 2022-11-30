@@ -66,13 +66,6 @@ vector <string> processLine(string line)
 int main(int argc, char *argv[])
 {
     string line, fname ;
-    std::array<char,16384> buffer;
-
-
-
-
-    // TODO: check for stdin
-
 
     if (argc == 2)
     {
@@ -100,6 +93,7 @@ int main(int argc, char *argv[])
     }
     else
     {
+            std::array<char,16384> buffer;
             FILE *pipe = stdin;
             if (!pipe)
             {
