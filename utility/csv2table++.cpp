@@ -16,10 +16,28 @@ using std::getline;
 using std::right;
 using std::setw;
 
+const std::string WHITESPACE = " \n\r\t\f\v";
+
+std::string ltrim(const std::string &s)
+{
+    size_t start = s.find_first_not_of(WHITESPACE);
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+
+std::string rtrim(const std::string &s)
+{
+    size_t end = s.find_last_not_of(WHITESPACE);
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+
+std::string trim(const std::string &s) {
+    return rtrim(ltrim(s));
+}
 
 int main(int argc, char *argv[])
 {
     string line, fname ;
+    std::array<char,16384> buffer;
     vector <string> result ; // Create a string array.
     int cols = 0 ;  // Create counter variable for columns.
     int rows = 0 ;  // Create counter variable for rows.
@@ -28,50 +46,87 @@ int main(int argc, char *argv[])
 
 
     // TODO: check for stdin
-    cout << "Argument Count: " << argc << endl;
-    cout << "Argument0: " << argv[0] << endl;
-    cout << "Argument1: " << argv[1] << endl;
 
-    if (argc != 2)
+
+    if (argc == 2)
     {
-        cout << "Usage: csv2table++ filename.csv" << endl ;
-        return -1 ;
+            cout << "Argument Count: " << argc << endl;
+            cout << "Argument0: " << argv[0] << endl;
+            cout << "Argument1: " << argv[1] << endl;
+            fname = argv[1] ;
+            ifstream reader( fname ) ; // Create input file object from argument provided.
+            if( ! reader ) // Always check this.
+            {
+                cout << "Error opening input file" << endl ;
+                return -1 ;
+            }
+
+            while( ! reader.eof() ) // Loop through data...
+            {
+                cols = 0; // reset counter each new line
+                getline(reader, line);
+                rows++ ;
+                if (maxrows < rows)
+                    maxrows = rows ;
+                stringstream ss( line );
+                while( ss.good() )
+                {
+                    string substr;
+                    getline( ss, substr, ',' ) ;
+
+                    cellsize = substr.size() ;
+                    if (maxcellsize < cellsize)
+                        maxcellsize = cellsize ;
+                    cols++ ;
+                    if (maxcols < cols)
+                        maxcols = cols ;
+                    if (substr != "" )
+                        result.push_back( substr ) ;
+                    else
+                        cout << "Empty line ignored." << endl ;
+                }
+            }
+            reader.close() ;
+    }
+    else
+    {
+            FILE *pipe = stdin;
+            if (!pipe)
+            {
+                std::cerr << "cannot open pipe to read" << endl;
+                exit(-1);
+            }
+            int c = 0;
+            string line;
+            while (fgets(buffer.data(), 16384, pipe) != NULL)
+            {
+                c++;
+                cols = 0; // reset counter each new line
+                line = trim(buffer.data());
+                rows++ ;
+                if (maxrows < rows)
+                    maxrows = rows ;
+                stringstream ss( line );
+                while( ss.good() )
+                {
+                    string substr;
+                    getline( ss, substr, ',' ) ;
+
+                    cellsize = substr.size() ;
+                    if (maxcellsize < cellsize)
+                        maxcellsize = cellsize ;
+                    cols++ ;
+                    if (maxcols < cols)
+                        maxcols = cols ;
+                    if (substr != "" )
+                        result.push_back( substr ) ;
+                    else
+                        cout << "Empty line ignored." << endl ;
+                }
+            }
     }
 
-    fname = argv[1] ;
-    ifstream reader( fname ) ; // Create input file object from argument provided.
-    if( ! reader ) // Always check this.
-    {
-        cout << "Error opening input file" << endl ;
-        return -1 ;
-    }
 
-    while( ! reader.eof() ) // Loop through data...
-    {
-        cols = 0; // reset counter each new line
-        getline(reader, line);
-        rows++ ;
-        if (maxrows < rows)
-            maxrows = rows ;
-        stringstream ss( line );
-        while( ss.good() )
-        {
-            string substr;
-            getline( ss, substr, ',' ) ;
-
-            cellsize = substr.size() ;
-            if (maxcellsize < cellsize)
-                maxcellsize = cellsize ;
-            cols++ ;
-            if (maxcols < cols)
-                maxcols = cols ;
-            if (substr != "" )
-                result.push_back( substr ) ;
-            else
-                cout << "Empty line ignored." << endl ;
-        }
-    }
-    reader.close() ;
 
     cout << "Elements in result array: " << result.size() << endl ;
     cout << "Max Columns: " << maxcols << endl ;
