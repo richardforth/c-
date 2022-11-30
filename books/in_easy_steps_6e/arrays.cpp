@@ -1,23 +1,34 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main()
 {
-    // Declared then initialized.
-    float nums[3];
-    nums[0] = 1.5; nums[1] = 2.75; nums[2] = 3.25;
+    cout << sizeof(int) << endl;
+    cout << sizeof(char) << endl;
+    cout << sizeof(long long) << endl;
+    cout << sizeof(float) << endl;
+    cout << sizeof(double) << endl;
 
-    // Declared then initialized.
-    char name[8] = {'r','i','c','h','a','r','d','\0'};
-    int coords[2][3] = { {1,2,3}, {4,5,6} };
 
-    cout << "nums[0]: " << nums[0] << endl;
-    cout << "nums[1]: " << nums[1] << endl;
-    cout << "nums[2]: " << nums[2] << endl;
-    cout << "name[0]: " << name[0]<< endl;
-    cout << "Text string: " << name << endl;
-    cout << "coords[0][2]" << coords[0][2] << endl;
-    cout << "coords[1][2]"<< coords[1][2]<< endl;
+    int x;
+    double d;
+    cout << sizeof(x) << endl;
+    x = 10;
+    cout << sizeof(x) << endl;
+    cout << sizeof(d) << endl;
+    cout << sizeof(10ll) << endl;
+    cout << sizeof(10.5) << endl;
 
+    // arrays
+    int num[ ] = {1, 1, 1, 1, 1};
+    cout << sizeof(num) << endl; // 20
+
+    // there are 5 elements of type int which is 4 bytes long (20/4 = 5)
+    cout << sizeof(num)/sizeof(int) << endl; // 5
+
+    // vector does not use sizeof, it has its own size(method)
+    vector <string> breakfast{"sausage"};
+    cout << breakfast.size() << endl;
     return 0;
 }
