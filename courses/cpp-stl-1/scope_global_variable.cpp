@@ -1,11 +1,11 @@
 #include <iostream.
 #using namespace std;
 
+// global variable
+int x = 10;
+
 int main()
 {
- 
-  // local variable
-  int x = 10;
   cout << x << endl;
   return 0;
 }
