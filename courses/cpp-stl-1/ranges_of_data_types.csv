@@ -2,7 +2,7 @@ data type, no of bits, range min, range max
 char,8,-126,127
 unsigned char, 8, 0, 255
 short,16, -32768, 32767
-int,32,~--4 x 10^9 2.14 x 10^9
+int,32,~--4 x 10^9, 2.14 x 10^9
 unsigned int, 32, 0, 4.29 x 10^9
 long long, 64, ~-9.x 10^18, 9.2 x 10^9
 unsigned long long, 64, 0, 1.8 x 10^19
