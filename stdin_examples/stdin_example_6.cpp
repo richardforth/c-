@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <vector> // Include vector support
 #include <fstream>
 #include <sstream>
@@ -15,12 +16,6 @@ using std::stringstream;
 using std::getline;
 using std::right;
 using std::setw;
-
-int cols = 0 ;  // Create counter variable for columns.
-int rows = 0 ;  // Create counter variable for rows.
-int maxcols = 0, maxrows = 0; // variables to keep highscores
-int cellsize = 0 , maxcellsize = 0 ; // variables to dynamically size tables based on content
-vector <string> result ; // Create a string array.
 
 const std::string WHITESPACE = " \n\r\t\f\v";
 
@@ -40,81 +35,49 @@ std::string trim(const std::string &s) {
     return rtrim(ltrim(s));
 }
 
-vector <string> processLine(string line)
+
+int main()
 {
-    stringstream ss( line );
-    while( ss.good() )
+    std::array<char,16384> buffer;
+    vector <string> result ; // Create a string array.
+    int cols = 0 ;  // Create counter variable for columns.
+    int rows = 0 ;  // Create counter variable for rows.
+    int maxcols = 0, maxrows = 0; // variables to keep highscores
+    int cellsize = 0 , maxcellsize = 0 ; // variables to dynamically size tables based on content
+    FILE *pipe = stdin;
+    if (!pipe)
     {
-        string substr;
-        getline( ss, substr, ',' ) ;
-
-        cellsize = substr.size() ;
-        if (maxcellsize < cellsize)
-            maxcellsize = cellsize ;
-        cols++ ;
-        if (maxcols < cols)
-            maxcols = cols ;
-        if (substr != "" )
-            result.push_back( substr ) ;
-        else
-            cout << "Empty line ignored." << endl ;
+        std::cerr << "cannot open pipe to read" << endl;
+        exit(-1);
     }
-    return result;
-}
-
-
-int main(int argc, char *argv[])
-{
-    string line, fname ;
-
-    if (argc == 2)
+    int c = 0;
+    string line;
+    while (fgets(buffer.data(), 16384, pipe) != NULL)
     {
-            cout << "Argument Count: " << argc << endl;
-            cout << "Argument0: " << argv[0] << endl;
-            cout << "Argument1: " << argv[1] << endl;
-            fname = argv[1] ;
-            ifstream reader( fname ) ; // Create input file object from argument provided.
-            if( ! reader ) // Always check this.
-            {
-                cout << "Error opening input file" << endl ;
-                return -1 ;
-            }
+        c++;
+        cols = 0; // reset counter each new line
+        line = trim(buffer.data());
+        rows++ ;
+        if (maxrows < rows)
+            maxrows = rows ;
+        stringstream ss( line );
+        while( ss.good() )
+        {
+            string substr;
+            getline( ss, substr, ',' ) ;
 
-            while( ! reader.eof() ) // Loop through data...
-            {
-                cols = 0; // reset counter each new line
-                getline(reader, line);
-                rows++ ;
-                if (maxrows < rows)
-                    maxrows = rows ;
-                result = processLine(line) ;
-            }
-            reader.close() ;
+            cellsize = substr.size() ;
+            if (maxcellsize < cellsize)
+                maxcellsize = cellsize ;
+            cols++ ;
+            if (maxcols < cols)
+                maxcols = cols ;
+            if (substr != "" )
+                result.push_back( substr ) ;
+            else
+                cout << "Empty line ignored." << endl ;
+        }
     }
-    else
-    {
-            std::array<char,16384> buffer;
-            FILE *pipe = stdin;
-            if (!pipe)
-            {
-                std::cerr << "cannot open pipe to read" << endl;
-                exit(-1);
-            }
-            int c = 0;
-            string line;
-            while (fgets(buffer.data(), 16384, pipe) != NULL)
-            {
-                c++;
-                cols = 0; // reset counter each new line
-                line = trim(buffer.data());
-                rows++ ;
-                if (maxrows < rows)
-                    maxrows = rows ;
-                result = processLine(line) ;
-            }
-    }
-
-
 
     cout << "Elements in result array: " << result.size() << endl ;
     cout << "Max Columns: " << maxcols << endl ;
@@ -177,5 +140,4 @@ int main(int argc, char *argv[])
         cols++ ;
     }
     cout << endl ;
-    return 0 ;
 }
