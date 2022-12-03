@@ -1,11 +1,11 @@
-data type, no of bits, range min, range max
-char,8,-126,127
-unsigned char, 8, 0, 255
-short,16, -32768, 32767
-int,32,~-2.14 x 10^9, 2.14 x 10^9
-unsigned int, 32, 0, 4.29 x 10^9
-long long, 64, ~-9.x 10^18, 9.2 x 10^9
-unsigned long long, 64, 0, 1.8 x 10^19
-float, 32, ~+/-1.18 x 10^-38, ~+/- 3.4 x 10^38
-double, 64, ~+/-2.23 x 10^-308, 1.80 x 10^308
-bool, 8, 0, 1
+data type, no of bits, range min, range max, formula
+char,8,-126,127, (-2^7 to 2^7-1)
+unsigned char, 8, 0, 255, (0 to 2^8-1)
+short,16, -32768, 32767, (-2^15 to 2^15-1)
+int,32,~-2.14 x 10^9, 2.14 x 10^9, (-2^31 to 2^31-1)
+unsigned int, 32, 0, 4.29 x 10^9, (0  to 2^32-1)
+long long, 64, ~-9.x 10^18, 9.2 x 10^9, (-2^63 to 2^63-1)
+unsigned long long, 64, 0, 1.8 x 10^19, (0 to 2^64-1)
+float, 32, ~+/-1.18 x 10^-38, ~+/- 3.4 x 10^38, (+/-2^-126 to +/- 2^128
+double, 64, ~+/-2.23 x 10^-308, 1.80 x 10^308, (+/-2^1022 to +/-2^1024 )
+bool, 8, 0, 1 (0 to 1)
